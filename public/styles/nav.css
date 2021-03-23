@@ -1,0 +1,35 @@
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: 'Bungee', cursive;
+  color: #FFFFFF;
+  background: #4056A1;
+  padding: 1.5em;
+  height: 120px;
+
+ }
+
+ .new_tweet_selector {
+   display: flex;
+   flex-direction: column;
+   font-family: 'Source Sans Pro', sans-serif;
+   font-size: 16px;
+   font-weight: 300;
+ }
+ 
+ .new_tweet_selector_text {
+   display:flex;
+   flex-direction: row;
+   
+ }
+
+ .new_tweet_selector_arrow {
+  margin: auto;
+  color: red;
+ }
+
+ .write {
+  
+  font-weight: 700;
+ }
