@@ -1,0 +1,30 @@
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  width: 100%;
+  background-color: #e09500;
+background-image: url("https://www.transparenttextures.com/patterns/arches.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
+.profile {
+  display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+/* .image {
+  justify-content: center;
+  align-items: center;
+
+} */
+
+.name {
+  color: #FFFFFF;
+  /* justify-content: center;
+  align-items: center; */
+} 
