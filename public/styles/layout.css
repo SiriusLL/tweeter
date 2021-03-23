@@ -28,8 +28,8 @@ body {
 
  .container {
    display: flex;
-    
-   align-items: center;
+   justify-content: center; 
+   /* align-items: center; */
    color: #545149;
    background-color: #f4f1ec;
    width: 90%;
