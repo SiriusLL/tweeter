@@ -3,4 +3,98 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
+$(document).ready(function() {
+  const data = [
+    {
+      "user": {
+        "name": "Newton",
+        "avatars": "https://i.imgur.com/73hZDYK.png"
+        ,
+        "handle": "@SirIsaac"
+      },
+      "content": {
+        "text": "If I have seen further it is by standing on the shoulders of giants"
+      },
+      "created_at": 1461116232227
+    },
+    {
+      "user": {
+        "name": "Descartes",
+        "avatars": "https://i.imgur.com/nlhLi3I.png",
+        "handle": "@rd" },
+      "content": {
+        "text": "Je pense , donc je suis"
+      },
+      "created_at": 1461113959088
+    }
+  ]
 
+  const renderTweets = function(tweets) {
+    for (const tweet of tweets) {
+      let createdTweet = createTweetElement(tweet)
+
+      $('.tweet-container').append(createdTweet);
+      console.log($('.tweet-container')); 
+      console.log('file is running');
+    }
+  }
+
+  const createTweetElement = function(tweet) {
+    console.log("date", tweet.created_at);
+    const $tweet = $(`<article class="display-tweet">
+    <header class="display-tweet-header">
+      
+      <div class="profile-image">
+        
+        <div class="name-and-image"><img class="display-tweet-image" src=${tweet.user.avatars}><p>${tweet.user.name}</p></div>
+        
+        <div class="handler">${tweet.user.handle}</div>
+      </div>
+
+    </header>
+    <section class="display-tweet-text">
+      <p>This is my tweet!!</p>
+    </section>
+    <footer class="display-tweet-date-icons">
+      <div class="tweet-date">
+        <p>${tweet.created_at}</p>
+      </div>
+      <div class="tweet-icons">
+        <p><i class="far fa-flag"></i></p><p><i class="fas fa-retweet"></i></p><p><i class="far fa-heart"></i></p>
+      </div>
+      
+    </footer>
+  </article>`);
+    return $tweet;
+  }
+  
+  //renderTweets(data);
+
+
+
+  $("#submit-tweet").on("submit", function(event) {
+    event.preventDefault();
+
+    let url = 'http://localhost:8080/tweets';
+    //let url = 'http://example.com'
+    console.log(url);
+    //console.log('renterTweets', renderTweets(data).serialize())
+    const data = $(this).serialize();
+    $.ajax({
+      url: url,
+      method: "POST",
+      data: data
+    }).then((result) => {
+      console.log('ajax callback called');
+      renderTweets(result)
+    }).catch(err => {
+      console.log('ajax error caught');
+      console.log(err);
+    });
+  });
+
+
+  const loadTweets = function() {
+
+  };
+});
