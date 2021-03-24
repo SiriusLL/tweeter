@@ -26,6 +26,7 @@ article.display-tweet:hover .handler {
   /* align-items: flex-end; */
   /* border:2px solid #545149; */
   background-color: #f4f1ec;
+  padding-top: 10px;
   height: 100px;
   width: 95%;
   margin: auto;
@@ -42,10 +43,11 @@ article.display-tweet:hover .handler {
 }
 
 .handler {
-  /* display: flex;
+  display: flex;
   justify-content: flex-end;
-  flex: 1; */
-  opacity: 1;
+  align-items: center;
+  flex: 3;
+  opacity: 0;
 }
 
 /* .handler:hover {
@@ -78,7 +80,7 @@ article.display-tweet:hover .handler {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .tweet-date {

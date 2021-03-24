@@ -56,13 +56,15 @@
     <main class="container">
       <section class="new-tweet">
         <h2>Compose Tweet</h2>
-        <form id="submit-tweet" action="/tweets" method="POST">
+        <form id="submit-tweet"action="/tweets" method="POST">
           <textarea name="text" id="tweet-text" placeholder="What are you humming about?"></textarea>
           <div class="button-and-counter">
             <button class="tweet-button" type="submit">Tweet</button>
             <output name="counter" class="counter" for="tweet-text">140</output>
           </div>
         </form>
+        <br />
+        <p id="error-message">*Message length must be within 140 character limit*</p>
       </section>
       
       <section class="tweet-container">

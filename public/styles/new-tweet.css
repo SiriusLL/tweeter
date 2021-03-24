@@ -17,6 +17,15 @@
   background-color: transparent;
 
 }
+
+#error-message {
+  border: solid rgb(66, 2, 2);
+  text-align: center;
+  color: rgb(146, 28, 28);
+  background: #f1a3ba;
+  display: none
+
+}
 /* textarea {
   background-color: transparent;
   border: 0;

@@ -3,6 +3,44 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
+
+const escape =  function(str) {
+  let div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
+
+const createTweetElement = function(tweet) {
+  const tweetDate = new Date(tweet.created_at).toLocaleDateString('en-gb');
+  console.log("date", tweet.created_at);
+  const $tweet = $(`<article class="display-tweet">
+  <header class="display-tweet-header">
+    
+    <div class="profile-image">
+      
+      <div class="name-and-image"><img class="display-tweet-image" src=${tweet.user.avatars}><p>${tweet.user.name}</p></div>
+      
+      <div class="handler">${tweet.user.handle}</div>
+    </div>
+
+  </header>
+  <section class="display-tweet-text">
+    <p>${escape(tweet.content.text)}</p>
+  </section>
+  <footer class="display-tweet-date-icons">
+    <div class="tweet-date">
+      <p>${tweetDate}</p>
+    </div>
+    <div class="tweet-icons">
+      <p><i class="far fa-flag"></i></p><p><i class="fas fa-retweet"></i></p><p><i class="far fa-heart"></i></p>
+    </div>
+    
+  </footer>
+</article>`);
+  return $tweet;
+}
+
 $(document).ready(function() {
   // const data = [
   //   {
@@ -39,34 +77,7 @@ $(document).ready(function() {
     }
   }
 
-  const createTweetElement = function(tweet) {
-    console.log("date", tweet.created_at);
-    const $tweet = $(`<article class="display-tweet">
-    <header class="display-tweet-header">
-      
-      <div class="profile-image">
-        
-        <div class="name-and-image"><img class="display-tweet-image" src=${tweet.user.avatars}><p>${tweet.user.name}</p></div>
-        
-        <div class="handler">${tweet.user.handle}</div>
-      </div>
-
-    </header>
-    <section class="display-tweet-text">
-      <p>${tweet.content.text}</p>
-    </section>
-    <footer class="display-tweet-date-icons">
-      <div class="tweet-date">
-        <p>${tweet.created_at}</p>
-      </div>
-      <div class="tweet-icons">
-        <p><i class="far fa-flag"></i></p><p><i class="fas fa-retweet"></i></p><p><i class="far fa-heart"></i></p>
-      </div>
-      
-    </footer>
-  </article>`);
-    return $tweet;
-  }
+  
   
   //renderTweets(data);
 
@@ -76,7 +87,8 @@ $(document).ready(function() {
     event.preventDefault();
 
     if ($('#tweet-text').val().length > 140) {
-      alert('Character count exceeds 140 characters');
+      $('#error-message').slideDown();
+      //alert('Character count exceeds 140 characters');
       return;
     }
 
@@ -92,8 +104,10 @@ $(document).ready(function() {
         data: data
       }).then((result) => {
         console.log('POST ajax callback called');
+        $('#error-message').slideUp();
         loadTweets();
         $('#tweet-text').val('');
+        $('#tweet-text').siblings(".button-and-counter").find(".counter").html('0')
       }).catch(err => {
         console.log('POST ajax error caught');
         console.log(err);
