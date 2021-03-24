@@ -1,7 +1,12 @@
+
+
 .logo {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  position: fixed;
+  top: 0;
+  width: 100%;
   font-family: 'Bungee', cursive;
   color: #FFFFFF;
   background: #4056A1;
