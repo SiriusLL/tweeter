@@ -4,36 +4,36 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 $(document).ready(function() {
-  const data = [
-    {
-      "user": {
-        "name": "Newton",
-        "avatars": "https://i.imgur.com/73hZDYK.png"
-        ,
-        "handle": "@SirIsaac"
-      },
-      "content": {
-        "text": "If I have seen further it is by standing on the shoulders of giants"
-      },
-      "created_at": 1461116232227
-    },
-    {
-      "user": {
-        "name": "Descartes",
-        "avatars": "https://i.imgur.com/nlhLi3I.png",
-        "handle": "@rd" },
-      "content": {
-        "text": "Je pense , donc je suis"
-      },
-      "created_at": 1461113959088
-    }
-  ]
+  // const data = [
+  //   {
+  //     "user": {
+  //       "name": "Newton",
+  //       "avatars": "https://i.imgur.com/73hZDYK.png"
+  //       ,
+  //       "handle": "@SirIsaac"
+  //     },
+  //     "content": {
+  //       "text": "If I have seen further it is by standing on the shoulders of giants"
+  //     },
+  //     "created_at": 1461116232227
+  //   },
+  //   {
+  //     "user": {
+  //       "name": "Descartes",
+  //       "avatars": "https://i.imgur.com/nlhLi3I.png",
+  //       "handle": "@rd" },
+  //     "content": {
+  //       "text": "Je pense , donc je suis"
+  //     },
+  //     "created_at": 1461113959088
+  //   }
+  // ]
 
   const renderTweets = function(tweets) {
     for (const tweet of tweets) {
       let createdTweet = createTweetElement(tweet)
-
-      $('.tweet-container').append(createdTweet);
+      console.log('createdTweet', createdTweet);
+      $('.tweet-container').prepend(createdTweet);
       console.log($('.tweet-container')); 
       console.log('file is running');
     }
@@ -53,7 +53,7 @@ $(document).ready(function() {
 
     </header>
     <section class="display-tweet-text">
-      <p>This is my tweet!!</p>
+      <p>${tweet.content.text}</p>
     </section>
     <footer class="display-tweet-date-icons">
       <div class="tweet-date">
@@ -75,26 +75,48 @@ $(document).ready(function() {
   $("#submit-tweet").on("submit", function(event) {
     event.preventDefault();
 
-    let url = 'http://localhost:8080/tweets';
-    //let url = 'http://example.com'
-    console.log(url);
-    //console.log('renterTweets', renderTweets(data).serialize())
-    const data = $(this).serialize();
-    $.ajax({
-      url: url,
-      method: "POST",
-      data: data
-    }).then((result) => {
-      console.log('ajax callback called');
-      renderTweets(result)
-    }).catch(err => {
-      console.log('ajax error caught');
-      console.log(err);
-    });
+    if ($('#tweet-text').val().length > 140) {
+      alert('Character count exceeds 140 characters');
+      return;
+    }
+
+    if ($('#tweet-text').val() !== null || ('#tweet-text').val() !== '') {
+      let url = 'http://localhost:8080/tweets';
+      //let url = 'http://example.com'
+      console.log(url);
+      //console.log('renterTweets', renderTweets(data).serialize())
+      const data = $(this).serialize();
+      $.ajax({
+        url: url,
+        method: "POST",
+        data: data
+      }).then((result) => {
+        console.log('POST ajax callback called');
+        loadTweets();
+        $('#tweet-text').val('');
+      }).catch(err => {
+        console.log('POST ajax error caught');
+        console.log(err);
+      });
+    }
   });
 
 
   const loadTweets = function() {
+    let url = 'http://localhost:8080/tweets';
 
+    $.ajax({
+      url: url,
+      method: "GET",
+    }).then((result) => {
+      console.log('GET ajax callback called')
+      console.log(result)
+      renderTweets(result);
+    }).catch(err => {
+      console.log('GET ajax error caught')
+      console.log(err);
+    });
   };
+
+  loadTweets();
 });
