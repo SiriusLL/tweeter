@@ -3,6 +3,7 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
+const tweetUrl = 'http://localhost:8080/tweets';
 
 const escape =  function(str) {
   let div = document.createElement('div');
@@ -12,7 +13,7 @@ const escape =  function(str) {
 
 
 const createTweetElement = function(tweet) {
-  const tweetDate = new Date(tweet.created_at).toLocaleDateString('en-gb');
+  const tweetDate = new Date(tweet.created_at).toLocaleString('en-gb');
   console.log("date", tweet.created_at);
   const $tweet = $(`<article class="display-tweet">
   <header class="display-tweet-header">
@@ -42,93 +43,66 @@ const createTweetElement = function(tweet) {
 }
 
 $(document).ready(function() {
-  // const data = [
-  //   {
-  //     "user": {
-  //       "name": "Newton",
-  //       "avatars": "https://i.imgur.com/73hZDYK.png"
-  //       ,
-  //       "handle": "@SirIsaac"
-  //     },
-  //     "content": {
-  //       "text": "If I have seen further it is by standing on the shoulders of giants"
-  //     },
-  //     "created_at": 1461116232227
-  //   },
-  //   {
-  //     "user": {
-  //       "name": "Descartes",
-  //       "avatars": "https://i.imgur.com/nlhLi3I.png",
-  //       "handle": "@rd" },
-  //     "content": {
-  //       "text": "Je pense , donc je suis"
-  //     },
-  //     "created_at": 1461113959088
-  //   }
-  // ]
+
+  const $textLengthError = $('#text-length-error');
+  const $emptyTextError = $('#empty-text-error');
+  const $tweetContainer = $('.tweet-container');
+  const $tweetText = $('#tweet-text')
 
   const renderTweets = function(tweets) {
+
+    $tweetContainer.empty();
+    
     for (const tweet of tweets) {
       let createdTweet = createTweetElement(tweet)
-      console.log('createdTweet', createdTweet);
-      $('.tweet-container').prepend(createdTweet);
-      console.log($('.tweet-container')); 
+      $tweetContainer.prepend(createdTweet);
       console.log('file is running');
     }
   }
 
-  
-  
-  //renderTweets(data);
-
-
-
   $("#submit-tweet").on("submit", function(event) {
     event.preventDefault();
 
-    if ($('#tweet-text').val().length > 140) {
-      $('#error-message').slideDown();
-      //alert('Character count exceeds 140 characters');
+    const $characterCount = $(this).find(".counter")
+
+    if ($tweetText.val().length > 140) {
+      $textLengthError.slideDown();
       return;
     }
 
-    if ($('#tweet-text').val() !== null || ('#tweet-text').val() !== '') {
-      let url = 'http://localhost:8080/tweets';
-      //let url = 'http://example.com'
-      console.log(url);
-      //console.log('renterTweets', renderTweets(data).serialize())
-      const data = $(this).serialize();
-      $.ajax({
-        url: url,
-        method: "POST",
-        data: data
-      }).then((result) => {
-        console.log('POST ajax callback called');
-        $('#error-message').slideUp();
-        loadTweets();
-        $('#tweet-text').val('');
-        $('#tweet-text').siblings(".button-and-counter").find(".counter").html('0')
-      }).catch(err => {
-        console.log('POST ajax error caught');
-        console.log(err);
-      });
-    }
+    if ($tweetText.val() === null || $tweetText.val() === '') {
+      $emptyTextError.slideDown();
+      return;
+    } 
+      
+    const data = $(this).serialize();
+    return $.ajax({
+      url: tweetUrl,
+      method: "POST",
+      data: data
+    }).then(function() {
+      console.log('POST ajax callback called');
+      $textLengthError.slideUp();
+      $emptyTextError.slideUp();
+      return loadTweets().then(function() {
+        $tweetText.val('');
+        $characterCount.html('0');
+      })
+    }).catch(error => {
+      console.error(error)
+    });
   });
 
 
   const loadTweets = function() {
-    let url = 'http://localhost:8080/tweets';
 
-    $.ajax({
-      url: url,
+    return $.ajax({
+      url: tweetUrl,
       method: "GET",
-    }).then((result) => {
-      console.log('GET ajax callback called')
-      console.log(result)
-      renderTweets(result);
-    }).catch(err => {
-      console.log('GET ajax error caught')
-      console.log(err);
+    }).then((tweetResonse) => {
+      renderTweets(tweetResonse);
+    }).catch(error => {
+      console.error(error);
     });
   };
 

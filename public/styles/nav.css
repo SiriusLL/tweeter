@@ -4,37 +4,45 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   position: fixed;
   top: 0;
   width: 100%;
   font-family: 'Bungee', cursive;
   color: #FFFFFF;
-  background: #4056A1;
-  padding: 1.5em;
+  background: transparent;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
   height: 120px;
 
- }
+}
 
- .new_tweet_selector {
-   display: flex;
-   flex-direction: column;
-   font-family: 'Source Sans Pro', sans-serif;
-   font-size: 16px;
-   font-weight: 300;
- }
+.new_tweet_selector {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
  
- .new_tweet_selector_text {
-   display:flex;
-   flex-direction: row;
-   
- }
-
- .new_tweet_selector_arrow {
-  margin: auto;
-  color: red;
- }
-
- .write {
+.new_tweet_selector_text {
+  display:flex;
+  flex-direction: row;
   
-  font-weight: 700;
- }
+}
+
+.new_tweet_selector_arrow {
+margin: auto;
+color: red;
+}
+
+.write {
+
+font-weight: 700;
+}
+
+@media only screen and (min-width: 1024px) {
+  .logo {
+    background-color: #4056A1;
+  }
+}

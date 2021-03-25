@@ -3,9 +3,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* height: 400px; */
   width: 100%;
-  margin-top: 120px;
+  padding-top: 10vw;
   background-color: #e09500;
 background-image: url("https://www.transparenttextures.com/patterns/arches.png");
 /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
@@ -19,14 +18,23 @@ background-image: url("https://www.transparenttextures.com/patterns/arches.png")
     align-items: center;
     
 }
-/* .image {
+.image {
   justify-content: center;
   align-items: center;
 
-} */
+}
 
 .name {
   color: #FFFFFF;
-  /* justify-content: center;
-  align-items: center; */
 } 
+
+@media only screen and (min-width: 1024px) {
+  .header-background {
+    margin-right: 9.55%;
+    margin-top: 243px;
+    width: 30%;
+    height: 400px;
+    padding-top: 3%;
+    margin-left: 3%;
+  }
+}
