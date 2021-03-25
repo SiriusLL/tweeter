@@ -68,9 +68,11 @@ article.display-tweet:hover .handler {
 }
 
 .tweet-icons {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  flex: 1;
+  display: none;
   padding-right: 40px;
+}
+
+article.display-tweet:hover .tweet-icons {
+  display: block;
+  padding-top: 27px;
 }

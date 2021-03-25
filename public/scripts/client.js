@@ -34,7 +34,9 @@ const createTweetElement = function(tweet) {
       <p>${tweetDate}</p>
     </div>
     <div class="tweet-icons">
-      <p><i class="far fa-flag"></i></p><p><i class="fas fa-retweet"></i></p><p><i class="far fa-heart"></i></p>
+      <i class="far fa-flag"></i>
+      <i class="fas fa-retweet"></i>
+      <i class="far fa-heart"></i>
     </div>
     
   </footer>
