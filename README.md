@@ -6,8 +6,8 @@ This repository is the starter code for the project: Students will fork and clon
 
 ## Final Product
 
-!["Tweeter desktop view"]()
-!["Tweeter tablet view"]()
+!["Tweeter desktop view"](https://github.com/SiriusLL/tweeter/blob/master/docs/tweeter-desktop-view.png)
+!["Tweeter tablet view"](https://github.com/SiriusLL/tweeter/blob/master/docs/tweeter-tablet-view.png)
 
 ## Getting Started
 
