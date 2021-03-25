@@ -2,7 +2,7 @@ $(document).ready(function() {
   $('#tweet-text').on('input', function() {
     let count = $('#tweet-text').val().length;
     if (count > 140) {
-      count = -Math.abs(count - 140);
+      count = 140 - count;
     }
     
     console.log($(this.siblings));
@@ -13,3 +13,5 @@ $(document).ready(function() {
     }
   });
 });
+
+output.counter

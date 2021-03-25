@@ -5,7 +5,8 @@
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  padding-top: 200px;
+  padding-top: 35px;
+  padding-bottom: 15px;
 }
 
 #tweet-text {
@@ -51,4 +52,10 @@
 
 .counter-color {
   color: red;
+}
+
+@media only screen and (min-width: 1024px) {
+  .new-tweet {
+    padding-top: 185px;
+  }
 }
